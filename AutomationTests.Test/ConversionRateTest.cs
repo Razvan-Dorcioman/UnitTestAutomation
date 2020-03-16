@@ -7,8 +7,27 @@ namespace AutomationTests.Test
     public class ConversionRateTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ConvertSuccessTest()
         {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod]
+        public void ConvertFailTest()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod]
+        public void ConvertTest_ThrowException()
+        {
+            Assert.Inconclusive();
+        }
+
+        [TestMethod]
+        public void ConvertTest_ThrowExceptionTryCatch()
+        {
+            Assert.Inconclusive();
         }
     }
 }

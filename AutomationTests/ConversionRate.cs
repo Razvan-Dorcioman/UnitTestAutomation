@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AutomationTests
 {
     public class ConversionRate
     {
+        public const string FileName = "history.txt";
         public static bool Inverse { get; set; }
 
         public Dictionary<string, double> ConversionRateList = new Dictionary<string, double>()
@@ -40,8 +39,44 @@ namespace AutomationTests
             Inverse = false;
         }
 
+        public bool FileExists(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            return File.Exists(fileName);
+        }
+
+        public void SaveHistory(string data)
+        {
+
+            if (string.IsNullOrEmpty(data))
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (FileExists(FileName))
+            {
+                File.AppendAllText(FileName, data + "\n");
+            }
+            else
+            {
+                File.Create(FileName);
+                File.AppendAllText(FileName, data + "\n");
+            }
+        }
+
         public double Convert(string firstText, string firstCombo, string secondCombo, out double convRate)
         {
+
+            if (string.IsNullOrEmpty(firstText) || string.IsNullOrEmpty(firstCombo) ||
+                string.IsNullOrEmpty(secondCombo))
+            {
+                throw new ArgumentNullException();
+            }
+
             double result;
             if (double.TryParse(firstText, out result))
             {
@@ -55,10 +90,11 @@ namespace AutomationTests
 
                     convRate = ConversionRateList[conversion];
                 }
+
                 return result * convRate;
             }
 
-            MessageBox.Show("Invalid number!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(@"Invalid number!", @"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             convRate = -1;
             return -1;
@@ -66,6 +102,12 @@ namespace AutomationTests
 
         private bool CompareCoins(string firstCombo, string secondCombo)
         {
+            if (string.IsNullOrEmpty(firstCombo) ||
+                string.IsNullOrEmpty(secondCombo))
+            {
+                throw new ArgumentNullException();
+            }
+
             return firstCombo == secondCombo;
         }
     }

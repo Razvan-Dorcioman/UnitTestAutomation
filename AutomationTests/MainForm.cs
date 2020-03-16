@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace AutomationTests
@@ -21,12 +22,12 @@ namespace AutomationTests
             secondComboBox.SelectedIndex = 1;
         }
 
-        private void secondTextBox_TextChanged(object sender, EventArgs e)
+        private async void secondTextBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(secondTextBox.Text))
             {
                 firstTexBox.Text = "";
-                conversionRateText.Text = "0";
+                conversionRateText.Text = @"0";
 
                 return;
             }
@@ -44,8 +45,15 @@ namespace AutomationTests
             if (res != -1)
             {
                 ConversionRate.Inverse = true;
-                firstTexBox.Text = res.ToString();
-                conversionRateText.Text = convRate.ToString();
+                firstTexBox.Text = res.ToString(CultureInfo.InvariantCulture);
+                conversionRateText.Text = convRate.ToString(CultureInfo.InvariantCulture);
+
+                TextBox textbox = secondTextBox as TextBox;
+
+                if (await textbox.GetIdle())
+                {
+                    _conversionRate.SaveHistory(firstComboBox.SelectedItem.ToString() + " " + firstTexBox.Text + " <- " + secondTextBox.Text + " " + secondComboBox.SelectedItem.ToString());
+                }
             }
             else
             {
@@ -58,7 +66,7 @@ namespace AutomationTests
             firstTexBox.TextChanged += firstTexBox_TextChanged;
         }
 
-        private void firstTexBox_TextChanged(object sender, EventArgs e)
+        private async void firstTexBox_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(firstTexBox.Text))
             {
@@ -79,8 +87,15 @@ namespace AutomationTests
             if (res != -1)
             {
                 ConversionRate.Inverse = false;
-                secondTextBox.Text = res.ToString();
-                conversionRateText.Text = convRate.ToString();
+                secondTextBox.Text = res.ToString(CultureInfo.InvariantCulture);
+                conversionRateText.Text = convRate.ToString(CultureInfo.InvariantCulture);
+
+                TextBox textbox = firstTexBox as TextBox;
+
+                if (await textbox.GetIdle())
+                {
+                    _conversionRate.SaveHistory(firstComboBox.SelectedItem.ToString() + " " + firstTexBox.Text + " -> " + secondTextBox.Text + " " + secondComboBox.SelectedItem.ToString());
+                }
             }
             else
             {
@@ -108,5 +123,6 @@ namespace AutomationTests
             else
                 secondTextBox_TextChanged(sender, e);
         }
+
     }
 }
