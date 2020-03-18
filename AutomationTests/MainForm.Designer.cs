@@ -30,6 +30,10 @@
         {
             this.mainTabControl = new System.Windows.Forms.TabControl();
             this.calculatorTab = new System.Windows.Forms.TabPage();
+            this.calculatorTabExpressionTextBox = new System.Windows.Forms.TextBox();
+            this.calculatorTabCalculateExpressionButton = new System.Windows.Forms.Button();
+            this.calculatorTabInfoLabel = new System.Windows.Forms.Label();
+            this.calculatorTabResultLabel = new System.Windows.Forms.Label();
             this.taxesTab = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.firstHomeRadioButton = new System.Windows.Forms.RadioButton();

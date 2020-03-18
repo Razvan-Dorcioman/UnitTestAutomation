@@ -8,7 +8,7 @@ namespace AutomationTests
     [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
-        Calculator calculator;
+        public Calculator calculator;
         public Taxes taxes;
         private ConversionRate _conversionRate;
 

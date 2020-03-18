@@ -551,7 +551,6 @@ namespace AutomationTests.Tests
         }
 
         [TestMethod()]
-        []
         public void calculateBasic()
         {
             // given
