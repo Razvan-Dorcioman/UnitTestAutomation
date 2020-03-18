@@ -8,18 +8,18 @@ namespace AutomationTests
 {
     public class Taxes
     {
-        public string rateType;
-        public decimal homePrice;
-        public decimal downPayment;
+        public string rateType = "";
+        public decimal homePrice = 0;
+        public decimal downPayment = 0;
         public decimal downPaymentPercentage = 15;
         public int lengthOfLoan = 10;
-        public decimal interestRate;
-        public string rateMonthlyType;
+        public decimal interestRate = 0;
+        public string rateMonthlyType = "";
 
 
-        public decimal monthlyCreditRate;
+        public decimal monthlyCreditRate = 0;
         public decimal[] creditRateDecreasing;
-        public decimal totalAmountPayable;
+        public decimal totalAmountPayable = 0;
         public decimal differenceFirstHome = 0;
         public double euro = 4.81;
 
@@ -84,23 +84,30 @@ namespace AutomationTests
             {
                 minim = 15;
             }
-
-            decimal numberDownPayment;
-            decimal numberHomePrice;
-
-            if(Decimal.TryParse(valueDownPayment, out numberDownPayment) && Decimal.TryParse(valueHomePrice, out numberHomePrice))
-            {
-                decimal val = (numberDownPayment / numberHomePrice) * 100;
-                if ((Convert.ToDecimal(val) < minim) || (Convert.ToDecimal(val) > maxim))
-                {
-                    return false;
-                }
-            }
             else
             {
                 return false;
             }
-            
+
+            decimal numberDownPayment;
+            decimal numberHomePrice;
+
+            if(valueDownPayment != "" && valueHomePrice != "")
+            {
+                if (Decimal.TryParse(valueDownPayment, out numberDownPayment) && Decimal.TryParse(valueHomePrice, out numberHomePrice))
+                {
+
+                    decimal val = (numberDownPayment / numberHomePrice) * 100;
+                    if ((Convert.ToDecimal(val) < minim) || (Convert.ToDecimal(val) > maxim))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
 
             return true;
         }
@@ -117,28 +124,34 @@ namespace AutomationTests
             {
                 minim = 15;
             }
-
-            if(value<minim || value > maxim)
+            else
             {
                 return false;
             }
 
+            if(value < minim || value > maxim)
+            {
+                return false;
+            }
             return true;
         }
 
-        public string calculateDownPaymentByProcent(decimal procent)
+        public string calculateDownPaymentByProcent(string procent)
         {
-            return (Convert.ToDecimal(homePrice) * procent / 100).ToString();
+            decimal value = homePrice * Convert.ToDecimal(procent) / 100;
+            return (decimal.Round(value, 2, MidpointRounding.AwayFromZero)).ToString();
         }
 
         public decimal calculateDownPaymentProcent()
         {
-            return (Convert.ToDecimal(downPayment) / Convert.ToDecimal(homePrice)) * 100;
+            decimal value = (downPayment / homePrice) * 100;
+            return decimal.Round(value, 2, MidpointRounding.AwayFromZero);
         }
 
         public string calculateDownPayment()
         {
-            return (Convert.ToDecimal(homePrice) * Convert.ToDecimal(downPaymentPercentage) / 100).ToString();
+            decimal value = homePrice * downPaymentPercentage / 100;
+            return (decimal.Round(value, 2, MidpointRounding.AwayFromZero)).ToString();
         }
         public bool CheckIfPropsAreEmpthy()
         {
@@ -165,27 +178,8 @@ namespace AutomationTests
                 return false;
             }
 
-            for (int i = 0; i < value.Length && ok != 0; i++)
-            {
-                Console.WriteLine(value[i]);
-                if (value[i] != ',' && Char.IsDigit(value[i]) == false)
-                {
-                    return false;
-                }
-            }
-            if (value == "")
-            {
-                return false;
-            }
+            interestRate = Convert.ToDecimal(value);
 
-            if (ok == 1)
-            {
-                interestRate = Convert.ToDecimal(value);
-            }
-            else
-            {
-                return false;
-            }
             return true;
         }
 
@@ -218,17 +212,21 @@ namespace AutomationTests
             }
             else
             {
-                differenceFirstHome = homePrice - Convert.ToDecimal(66000 * euro);
+                differenceFirstHome = decimal.Round((homePrice - Convert.ToDecimal(66000 * euro)), 2, MidpointRounding.AwayFromZero);
                 monthlyCreditRate = ((Convert.ToDecimal(66000 * euro) - downPayment) * interestRate / 100) / (12 * (1 - Convert.ToDecimal(Math.Pow(Convert.ToDouble(1 + (interestRate / 1200)), (-1) * Convert.ToDouble(lengthOfLoan * 12)))));
 
             }
-            totalAmountPayable = lengthOfLoan * 12 * monthlyCreditRate;
+            totalAmountPayable = lengthOfLoan * 12 * monthlyCreditRate + downPayment + differenceFirstHome;
+            monthlyCreditRate = decimal.Round(monthlyCreditRate, 2, MidpointRounding.AwayFromZero);
+            totalAmountPayable = decimal.Round(totalAmountPayable, 2, MidpointRounding.AwayFromZero);
         }
 
         public void CalculateRateForEqualRealStateInvestments()
         {
             monthlyCreditRate = ((homePrice-downPayment) * interestRate / 100) / (12 * (1 - Convert.ToDecimal(Math.Pow(Convert.ToDouble(1 + (interestRate / 1200)), (-1) * Convert.ToDouble(lengthOfLoan * 12)))));
-            totalAmountPayable = lengthOfLoan * 12 * monthlyCreditRate;
+            totalAmountPayable = lengthOfLoan * 12 * monthlyCreditRate + downPayment;
+            monthlyCreditRate = decimal.Round(monthlyCreditRate, 2, MidpointRounding.AwayFromZero);
+            totalAmountPayable = decimal.Round(totalAmountPayable, 2, MidpointRounding.AwayFromZero);
         }
 
         public void CalculateRateForDecreasingRealStateInvestments()
@@ -244,8 +242,6 @@ namespace AutomationTests
 
             totalAmountPayable = sumaRate;
         }
-        //tests
         //stop the loop
-        //validation after 1 sec
     }
 }

@@ -7,7 +7,7 @@ namespace AutomationTests
     public partial class MainForm : Form
     {
         public Taxes taxes;
-        private readonly ConversionRate _conversionRate;
+        private ConversionRate _conversionRate;
 
         public MainForm()
         {
@@ -29,7 +29,7 @@ namespace AutomationTests
 
             }
             
-            downPaymentTextBox1.Text = taxes.calculateDownPaymentByProcent(Convert.ToDecimal(downPaymentNumericUpDown.Text));
+            downPaymentTextBox1.Text = taxes.calculateDownPaymentByProcent(downPaymentNumericUpDown.Text);
             CheckAndCalculateRate();
         }
 
@@ -46,43 +46,61 @@ namespace AutomationTests
         private void realEstateInvestmentsRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             taxes.SetRateType("realEstateInvestments");
+            if (taxes.ValidateDownPaymentProcent(downPaymentNumericUpDown.Value) == false)
+            {
+                MessageBox.Show("Invalid input for down payment procent");
+                downPaymentNumericUpDown.Value = firstHomeRadioButton.Checked ? 5 : 15;
+            }
             moneyToInvestLTextBox.Visible = false;
             moneyToInvestLabel.Visible = false;
             decreasingMonthlyRateRadioButton.Visible = true;
             CheckAndCalculateRate();
         }
 
-        private void downPaymentTextBox1_TextChanged(object sender, EventArgs e)
+        private async void downPaymentTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (taxes.ValidateDownPayment(downPaymentTextBox1.Text, homePriceTextBox.Text))
+            TextBox dpbox = sender as TextBox;
+            if(await dpbox.GetIdle(500))
             {
-                taxes.SetDownPayment(downPaymentTextBox1.Text);
-                downPaymentNumericUpDown.Value = taxes.calculateDownPaymentProcent();
-                taxes.SetDownPaymentPercentage(downPaymentNumericUpDown.Value);
-                CheckAndCalculateRate();
-            }
-            else
-            {
-                MessageBox.Show("Invalid input for down payment.");
-                downPaymentTextBox1.Text = "";
-                //validate after 1 sec
+                if(downPaymentTextBox1.Text != "")
+                {
+                    if(homePriceTextBox.Text != "")
+                    {
+                        if (taxes.ValidateDownPayment(downPaymentTextBox1.Text, homePriceTextBox.Text))
+                        {
+                            taxes.SetDownPayment(downPaymentTextBox1.Text);
+                            downPaymentNumericUpDown.Value = taxes.calculateDownPaymentProcent();
+                            taxes.SetDownPaymentPercentage(downPaymentNumericUpDown.Value);
+                            CheckAndCalculateRate();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Invalid input for down payment.");
+                            downPaymentTextBox1.Text = "";
+                        }
+                    }
+                }
+                
             }
         }
-        private void downPaymentNumericUpDown_ValueChanged(object sender, EventArgs e)
+        private async void downPaymentNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if(taxes.ValidateDownPaymentProcent(downPaymentNumericUpDown.Value))
+
+            NumericUpDown dppnupdown = sender as NumericUpDown;
+            if (await dppnupdown.GetIdle(500))
             {
-                taxes.SetDownPaymentPercentage(downPaymentNumericUpDown.Value);
-                downPaymentTextBox1.Text = taxes.calculateDownPayment();
-                CheckAndCalculateRate();
+                if (taxes.ValidateDownPaymentProcent(downPaymentNumericUpDown.Value))
+                {
+                    taxes.SetDownPaymentPercentage(downPaymentNumericUpDown.Value);
+                    downPaymentTextBox1.Text = taxes.calculateDownPayment();
+                    CheckAndCalculateRate();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid input for down payment procent");
+                    downPaymentNumericUpDown.Value = firstHomeRadioButton.Checked ? 5 : 15;
+                }
             }
-            else
-            {
-                MessageBox.Show("Invalid input for down payment procent");
-                downPaymentNumericUpDown.Value = firstHomeRadioButton.Checked ? 5 : 15;
-            }
-            //validate after 1 sec
-            
         }
 
         private void lengthOfLoanNumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -91,16 +109,23 @@ namespace AutomationTests
             CheckAndCalculateRate();
         }
 
-        private void interestRateTextBox_TextChanged(object sender, EventArgs e)
+        private async void interestRateTextBox_TextChanged(object sender, EventArgs e)
         {
-            if(taxes.validateInterestRate(interestRateTextBox.Text))
+            TextBox dpbox = sender as TextBox;
+            if (await dpbox.GetIdle(1000))
             {
-                CheckAndCalculateRate();
-            }
-            else
-            {
-                interestRateTextBox.Text = "";
-                MessageBox.Show("invalid interest rate");
+                if (taxes.validateInterestRate(interestRateTextBox.Text) && interestRateTextBox.Text != "")
+                {
+                    CheckAndCalculateRate();
+                }
+                else
+                {
+                    if(interestRateTextBox.Text != "")
+                    {
+                    interestRateTextBox.Text = "";
+                    MessageBox.Show("invalid interest rate");
+                    }
+                }
             }
         }
 

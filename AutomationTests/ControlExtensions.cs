@@ -11,5 +11,12 @@ namespace AutomationTests
             await Task.Delay(waitTime);
             return txt == txb.Text;
         }
+
+        public static async Task<bool> GetIdle(this NumericUpDown nud, int waitTime = 1000)
+        {
+            var txt = nud.Value;
+            await Task.Delay(waitTime);
+            return txt == nud.Value;
+        }
     }
 }
