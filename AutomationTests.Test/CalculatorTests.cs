@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace AutomationTests.Tests
+namespace AutomationTests.Test
 {
     [TestClass()]
     public class CalculatorTests

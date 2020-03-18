@@ -52,7 +52,6 @@
             this.RateTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.RateTable.Size = new System.Drawing.Size(723, 381);
             this.RateTable.TabIndex = 0;
-            this.RateTable.Paint += new System.Windows.Forms.PaintEventHandler(this.RateTable_Paint);
             // 
             // TableForm
             // 

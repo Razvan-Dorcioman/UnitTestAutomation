@@ -195,6 +195,13 @@ namespace AutomationTests.Test
 
         [TestMethod]
         [Owner("Iulia")]
+        [TestCategory("BlackBox")]
+        public void TestValidateDownPaymentEmpthyRateTypeFail()
+        {
+            Assert.IsFalse(taxesManager.ValidateDownPayment("2000", "20000"));
+        }
+        [TestMethod]
+        [Owner("Iulia")]
         [TestCategory("WhiteBox")]
         public void TestValidateDownPaymentProcentFirstHomeSuccessSmallest()
         {
@@ -243,7 +250,7 @@ namespace AutomationTests.Test
         public void TestCalculateDownPaymentByProcentSuccess()
         {
             taxesManager.homePrice = 10123;
-            Assert.AreEqual("1720,91", taxesManager.calculateDownPaymentByProcent("17"));
+            Assert.AreEqual("1720.91", taxesManager.calculateDownPaymentByProcent("17"));
         }
 
         [TestMethod]
@@ -263,7 +270,7 @@ namespace AutomationTests.Test
         {
             taxesManager.downPaymentPercentage = 17;
             taxesManager.homePrice = 10123;
-            Assert.AreEqual("1720,91", taxesManager.calculateDownPayment());
+            Assert.AreEqual("1720.91", taxesManager.calculateDownPayment());
         }
 
         [TestMethod]

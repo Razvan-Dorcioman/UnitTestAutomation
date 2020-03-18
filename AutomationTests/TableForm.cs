@@ -41,9 +41,5 @@ namespace AutomationTests
             
         }
 
-        private void RateTable_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
