@@ -8,9 +8,9 @@ namespace AutomationTests
     [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
+        private ConversionRate _conversionRate;
         public Calculator calculator;
         public Taxes taxes;
-        private ConversionRate _conversionRate;
 
         public MainForm()
         {
@@ -23,27 +23,21 @@ namespace AutomationTests
 
         private void calculatorTabExpressionTextBox_TextChanged(object sender, EventArgs e)
         {
-            
         }
 
         private void calculatorTabCalculateExpressionButton_Click(object sender, EventArgs e)
         {
-            String result = calculator.calculateBasic(this.calculatorTabExpressionTextBox.Text);
-            this.calculatorTabResultLabel.Text = result;
+            var result = calculator.calculateBasic(calculatorTabExpressionTextBox.Text);
+            calculatorTabResultLabel.Text = result;
         }
 
         private void homePriceTextBox_TextChanged(object sender, EventArgs e)
         {
             if (homePriceTextBox.Text == "")
-            {
                 taxes.SetHomePrice("0");
-            }
             else
-            {
                 taxes.SetHomePrice(homePriceTextBox.Text);
 
-            }
-            
             downPaymentTextBox1.Text = taxes.calculateDownPaymentByProcent(downPaymentNumericUpDown.Text);
             CheckAndCalculateRate();
         }
@@ -66,6 +60,7 @@ namespace AutomationTests
                 MessageBox.Show("Invalid input for down payment procent");
                 downPaymentNumericUpDown.Value = firstHomeRadioButton.Checked ? 5 : 15;
             }
+
             moneyToInvestLTextBox.Visible = false;
             moneyToInvestLabel.Visible = false;
             decreasingMonthlyRateRadioButton.Visible = true;
@@ -74,12 +69,10 @@ namespace AutomationTests
 
         private async void downPaymentTextBox1_TextChanged(object sender, EventArgs e)
         {
-            TextBox dpbox = sender as TextBox;
-            if(await dpbox.GetIdle(500))
-            {
-                if(downPaymentTextBox1.Text != "")
-                {
-                    if(homePriceTextBox.Text != "")
+            var dpbox = sender as TextBox;
+            if (await dpbox.GetIdle(500))
+                if (downPaymentTextBox1.Text != "")
+                    if (homePriceTextBox.Text != "")
                     {
                         if (taxes.ValidateDownPayment(downPaymentTextBox1.Text, homePriceTextBox.Text))
                         {
@@ -94,14 +87,11 @@ namespace AutomationTests
                             downPaymentTextBox1.Text = "";
                         }
                     }
-                }
-                
-            }
         }
+
         private async void downPaymentNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-
-            NumericUpDown dppnupdown = sender as NumericUpDown;
+            var dppnupdown = sender as NumericUpDown;
             if (await dppnupdown.GetIdle(500))
             {
                 if (taxes.ValidateDownPaymentProcent(downPaymentNumericUpDown.Value))
@@ -126,8 +116,8 @@ namespace AutomationTests
 
         private async void interestRateTextBox_TextChanged(object sender, EventArgs e)
         {
-            TextBox dpbox = sender as TextBox;
-            if (await dpbox.GetIdle(1000))
+            var dpbox = sender as TextBox;
+            if (await dpbox.GetIdle())
             {
                 if (taxes.validateInterestRate(interestRateTextBox.Text) && interestRateTextBox.Text != "")
                 {
@@ -135,10 +125,10 @@ namespace AutomationTests
                 }
                 else
                 {
-                    if(interestRateTextBox.Text != "")
+                    if (interestRateTextBox.Text != "")
                     {
-                    interestRateTextBox.Text = "";
-                    MessageBox.Show("invalid interest rate");
+                        interestRateTextBox.Text = "";
+                        MessageBox.Show("invalid interest rate");
                     }
                 }
             }
@@ -156,14 +146,13 @@ namespace AutomationTests
             taxes.SetRateMonthlyType("decreasing");
             monthlyCreditRateButton.Visible = true;
             CheckAndCalculateRate();
-
         }
 
         private void monthlyCreditRateButton_Click(object sender, EventArgs e)
         {
-            if(monthlyCreditRateTextBox.Text != "")
+            if (monthlyCreditRateTextBox.Text != "")
             {
-                TableForm tableForm = new TableForm(taxes.creditRateDecreasing);
+                var tableForm = new TableForm(taxes.creditRateDecreasing);
                 tableForm.Show();
                 tableForm.PopulateTable();
             }
@@ -171,7 +160,6 @@ namespace AutomationTests
 
         private void CheckAndCalculateRate()
         {
-            
             if (taxes.CheckIfPropsAreEmpthy())
             {
                 taxes.CalculateRate();
@@ -180,17 +168,13 @@ namespace AutomationTests
                     monthlyCreditRateTextBox.Text = taxes.GetMonthlyCreditRate();
                     totalAmountPayableTextBox.Text = taxes.GetTotalAmountPayable();
 
-                    if(decreasingMonthlyRateRadioButton.Checked)
-                    {
-                        monthlyCreditRateButton.Enabled = true;
-                    }
+                    if (decreasingMonthlyRateRadioButton.Checked) monthlyCreditRateButton.Enabled = true;
 
-                    if(firstHomeRadioButton.Checked)
-                    {
+                    if (firstHomeRadioButton.Checked)
                         moneyToInvestLTextBox.Text = Convert.ToString(taxes.differenceFirstHome);
-                    }
                 }
             }
+
             InitializeAdditionalComponent();
 
             _conversionRate = new ConversionRate();
@@ -228,12 +212,11 @@ namespace AutomationTests
                 firstTexBox.Text = res.ToString(CultureInfo.InvariantCulture);
                 conversionRateText.Text = convRate.ToString(CultureInfo.InvariantCulture);
 
-                TextBox textbox = secondTextBox as TextBox;
+                var textbox = secondTextBox;
 
                 if (await textbox.GetIdle())
-                {
-                    _conversionRate.SaveHistory(firstComboBox.SelectedItem.ToString() + " " + firstTexBox.Text + " <- " + secondTextBox.Text + " " + secondComboBox.SelectedItem.ToString());
-                }
+                    _conversionRate.SaveHistory(firstComboBox.SelectedItem + " " + firstTexBox.Text + " <- " +
+                                                secondTextBox.Text + " " + secondComboBox.SelectedItem);
             }
             else
             {
@@ -270,12 +253,11 @@ namespace AutomationTests
                 secondTextBox.Text = res.ToString(CultureInfo.InvariantCulture);
                 conversionRateText.Text = convRate.ToString(CultureInfo.InvariantCulture);
 
-                TextBox textbox = firstTexBox as TextBox;
+                var textbox = firstTexBox;
 
                 if (await textbox.GetIdle())
-                {
-                    _conversionRate.SaveHistory(firstComboBox.SelectedItem.ToString() + " " + firstTexBox.Text + " -> " + secondTextBox.Text + " " + secondComboBox.SelectedItem.ToString());
-                }
+                    _conversionRate.SaveHistory(firstComboBox.SelectedItem + " " + firstTexBox.Text + " -> " +
+                                                secondTextBox.Text + " " + secondComboBox.SelectedItem);
             }
             else
             {
@@ -303,6 +285,5 @@ namespace AutomationTests
             else
                 secondTextBox_TextChanged(sender, e);
         }
-
     }
 }

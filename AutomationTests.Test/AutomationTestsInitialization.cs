@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutomationTests.Test
 {
     /// <summary>
-    /// Summary description for AutomationTestsInitialization
+    ///     Summary description for AutomationTestsInitialization
     /// </summary>
     [TestClass]
     [ExcludeFromCodeCoverage]
@@ -19,14 +16,12 @@ namespace AutomationTests.Test
             tc.WriteLine("We are in the Assembly Initialize Method!!!");
 
             //initialize here
-
         }
 
         [AssemblyCleanup]
         public static void AssemblyCleanup()
         {
             //cleanup here
-
         }
     }
 }

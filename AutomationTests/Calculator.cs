@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationTests
 {
     public class Calculator
     {
-        private char[] sumAndSubstractOperators = { '+', '-' };
-        private char[] multiplyAndDivideOperators = { '*', '/' };
-        private char[] operators;
+        private readonly char[] multiplyAndDivideOperators = {'*', '/'};
+        private readonly char[] operators;
+        private readonly char[] sumAndSubstractOperators = {'+', '-'};
 
         public Calculator()
         {
@@ -20,49 +17,34 @@ namespace AutomationTests
         // expression validation
         public bool validateConsistency(string str)
         {
-            if (str.Length == 0)
+            if (str.Length == 0) return false;
+            for (var i = 0; i < str.Length; i++)
             {
-                return false;
+                var actualChar = str.ElementAt(i);
+                if (!(isDigit(actualChar) || operators.Contains(actualChar))) return false;
             }
-            for (int i = 0; i < str.Length; i++)
-            {
-                char actualChar = str.ElementAt(i);
-                if (!(isDigit(actualChar) || operators.Contains(actualChar)))
-                {
-                    return false;
-                }
-            }
+
             return true;
         }
 
         public bool validateOperationSigns(string str)
         {
-            if (str.Length == 0)
-            {
-                return false;
-            }
-            for (int i = 0; i < str.Length; i++)
+            if (str.Length == 0) return false;
+            for (var i = 0; i < str.Length; i++)
             {
                 var beforeChar = str.ElementAtOrDefault(i - 1);
                 var actualChar = str.ElementAt(i);
                 var afterChar = str.ElementAtOrDefault(i + 1);
 
                 if (sumAndSubstractOperators.Contains(actualChar))
-                {
-                    if (!((isDigit(beforeChar) && isDigit(afterChar)) ||
-                        ('\0'.Equals(beforeChar) && isDigit(afterChar))))
-                    {
+                    if (!(isDigit(beforeChar) && isDigit(afterChar) ||
+                          '\0'.Equals(beforeChar) && isDigit(afterChar)))
                         return false;
-                    }
-                }
                 if (multiplyAndDivideOperators.Contains(actualChar))
-                {
                     if (!(isDigit(beforeChar) && isDigit(afterChar)))
-                    {
                         return false;
-                    }
-                }
             }
+
             return true;
         }
 
@@ -76,15 +58,13 @@ namespace AutomationTests
         public string processOperands(int indexOfOperatorInStr, string str)
         {
             int a = 0, b = 0;
-            int leftOpIndex = 0;
-            char operatorInStr = str.ElementAtOrDefault(indexOfOperatorInStr);
+            var leftOpIndex = 0;
+            var operatorInStr = str.ElementAtOrDefault(indexOfOperatorInStr);
 
-            if (!operators.Contains(operatorInStr))
-            {
-                return str;
-            }
+            if (!operators.Contains(operatorInStr)) return str;
 
-            if (multiplyAndDivideOperators.Contains(operatorInStr) && sumAndSubstractOperators.Contains(str.ElementAt(0)))
+            if (multiplyAndDivideOperators.Contains(operatorInStr) &&
+                sumAndSubstractOperators.Contains(str.ElementAt(0)))
             {
                 str = "0" + str;
                 indexOfOperatorInStr += 1;
@@ -98,6 +78,7 @@ namespace AutomationTests
             {
                 Console.WriteLine(e);
             }
+
             try
             {
                 a = int.Parse(str.Substring(leftOpIndex + 1, indexOfOperatorInStr - leftOpIndex - 1));
@@ -107,38 +88,28 @@ namespace AutomationTests
                 Console.WriteLine(e);
             }
 
-            var rightOpIndex = str.IndexOfAny(operators, indexOfOperatorInStr + 1, str.Length - indexOfOperatorInStr - 1);
-            if (rightOpIndex == -1)
-            {
-                rightOpIndex = str.Length;
-            }
+            var rightOpIndex =
+                str.IndexOfAny(operators, indexOfOperatorInStr + 1, str.Length - indexOfOperatorInStr - 1);
+            if (rightOpIndex == -1) rightOpIndex = str.Length;
 
             b = int.Parse(str.Substring(indexOfOperatorInStr + 1, rightOpIndex - indexOfOperatorInStr - 1));
 
-            int result = 0;
-            char leftOp = str.ElementAtOrDefault(leftOpIndex);
+            var result = 0;
+            var leftOp = str.ElementAtOrDefault(leftOpIndex);
 
             switch (operatorInStr)
             {
                 case '+':
                     if ('-'.Equals(leftOp))
-                    {
                         result = -a + b;
-                    }
                     else
-                    {
                         result = a + b;
-                    }
                     break;
                 case '-':
                     if ('-'.Equals(leftOp))
-                    {
                         result = -a - b;
-                    }
                     else
-                    {
                         result = a - b;
-                    }
                     break;
                 case '*':
                     result = a * b;
@@ -148,7 +119,7 @@ namespace AutomationTests
                     break;
             }
 
-            string partialResolved = "";
+            var partialResolved = "";
 
             try
             {
@@ -160,13 +131,9 @@ namespace AutomationTests
             }
 
             if (partialResolved != "")
-            {
-                partialResolved += leftOp.ToString() + result.ToString();
-            }
+                partialResolved += leftOp + result.ToString();
             else
-            {
                 partialResolved += result.ToString();
-            }
 
             partialResolved += str.Substring(rightOpIndex, str.Length - rightOpIndex);
 
@@ -201,10 +168,7 @@ namespace AutomationTests
                 {
                     strToSearchOperators = strToSearchOperators.Substring(1);
                     indexOfOperatorInStr = strToSearchOperators.IndexOfAny(sumAndSubstractOperators);
-                    if (indexOfOperatorInStr != -1)
-                    {
-                        indexOfOperatorInStr += 1;
-                    }
+                    if (indexOfOperatorInStr != -1) indexOfOperatorInStr += 1;
                 }
             }
 
@@ -213,13 +177,9 @@ namespace AutomationTests
 
         public string calculateBasic(string str)
         {
-            if (!(validateConsistency(str) && validateOperationSigns(str)))
-            {
-                return "Invalid expression";
-            }
-            string result1 = calculateMultiplyAndDivideInOrder(str);
+            if (!(validateConsistency(str) && validateOperationSigns(str))) return "Invalid expression";
+            var result1 = calculateMultiplyAndDivideInOrder(str);
             return calculateSumAndSubstractInOrder(result1);
         }
-
     }
 }

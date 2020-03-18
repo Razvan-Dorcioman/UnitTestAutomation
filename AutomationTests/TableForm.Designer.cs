@@ -1,4 +1,6 @@
-﻿namespace AutomationTests
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace AutomationTests
 {
     partial class TableForm
     {
@@ -11,6 +13,7 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        [ExcludeFromCodeCoverage]
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -26,6 +29,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         private void InitializeComponent()
         {
             this.RateTable = new System.Windows.Forms.TableLayoutPanel();
@@ -52,7 +56,6 @@
             this.RateTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.RateTable.Size = new System.Drawing.Size(723, 381);
             this.RateTable.TabIndex = 0;
-            this.RateTable.Paint += new System.Windows.Forms.PaintEventHandler(this.RateTable_Paint);
             // 
             // TableForm
             // 
