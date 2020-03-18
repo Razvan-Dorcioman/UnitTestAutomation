@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutomationTests.Test
@@ -9,6 +10,7 @@ namespace AutomationTests.Test
     /// Summary description for AutomationTestsInitialization
     /// </summary>
     [TestClass]
+    [ExcludeFromCodeCoverage]
     public class AutomationTestsInitialization
     {
         [AssemblyInitialize]

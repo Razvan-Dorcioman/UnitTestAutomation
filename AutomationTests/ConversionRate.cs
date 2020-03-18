@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AutomationTests
@@ -49,7 +51,7 @@ namespace AutomationTests
             return File.Exists(fileName);
         }
 
-        public void SaveHistory(string data)
+        public void SaveHistory(string data, string fileName = FileName)
         {
 
             if (string.IsNullOrEmpty(data))
@@ -57,14 +59,13 @@ namespace AutomationTests
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (FileExists(FileName))
+            if (FileExists(fileName))
             {
-                File.AppendAllText(FileName, data + "\n");
+                File.AppendAllText(fileName, data + Environment.NewLine);
             }
             else
             {
-                File.Create(FileName);
-                File.AppendAllText(FileName, data + "\n");
+                File.WriteAllText(fileName, data + Environment.NewLine);
             }
         }
 
@@ -94,13 +95,13 @@ namespace AutomationTests
                 return result * convRate;
             }
 
-            MessageBox.Show(@"Invalid number!", @"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //MessageBox.Show(@"Invalid number!", @"Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             convRate = -1;
             return -1;
         }
 
-        private bool CompareCoins(string firstCombo, string secondCombo)
+        public bool CompareCoins(string firstCombo, string secondCombo)
         {
             if (string.IsNullOrEmpty(firstCombo) ||
                 string.IsNullOrEmpty(secondCombo))

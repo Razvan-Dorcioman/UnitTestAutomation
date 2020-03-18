@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows.Forms;
 
 namespace AutomationTests
 {
+    [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
         private readonly ConversionRate _conversionRate;
