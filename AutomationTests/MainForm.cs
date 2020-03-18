@@ -8,15 +8,28 @@ namespace AutomationTests
     [ExcludeFromCodeCoverage]
     public partial class MainForm : Form
     {
+        Calculator calculator;
         public Taxes taxes;
         private ConversionRate _conversionRate;
 
         public MainForm()
         {
             InitializeComponent();
+            calculator = new Calculator();
             taxes = new Taxes();
             realEstateInvestmentsRadioButton.Checked = true;
             equalMonthlyRateRadioButton.Checked = true;
+        }
+
+        private void calculatorTabExpressionTextBox_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void calculatorTabCalculateExpressionButton_Click(object sender, EventArgs e)
+        {
+            String result = calculator.calculateBasic(this.calculatorTabExpressionTextBox.Text);
+            this.calculatorTabResultLabel.Text = result;
         }
 
         private void homePriceTextBox_TextChanged(object sender, EventArgs e)

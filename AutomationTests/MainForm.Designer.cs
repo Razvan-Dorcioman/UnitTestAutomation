@@ -100,6 +100,57 @@
             this.calculatorTab.Text = "Calculator";
             this.calculatorTab.UseVisualStyleBackColor = true;
             // 
+            // calculatorTab
+            // 
+            this.calculatorTab.Controls.Add(this.calculatorTabResultLabel);
+            this.calculatorTab.Controls.Add(this.calculatorTabInfoLabel);
+            this.calculatorTab.Controls.Add(this.calculatorTabExpressionTextBox);
+            this.calculatorTab.Controls.Add(this.calculatorTabCalculateExpressionButton);
+            this.calculatorTab.Location = new System.Drawing.Point(4, 25);
+            this.calculatorTab.Margin = new System.Windows.Forms.Padding(4);
+            this.calculatorTab.Name = "calculatorTab";
+            this.calculatorTab.Padding = new System.Windows.Forms.Padding(4);
+            this.calculatorTab.Size = new System.Drawing.Size(1052, 525);
+            this.calculatorTab.TabIndex = 0;
+            this.calculatorTab.Text = "Calculator";
+            this.calculatorTab.UseVisualStyleBackColor = true;
+            // 
+            // calculatorTabExpressionTextBox
+            // 
+            this.calculatorTabExpressionTextBox.Location = new System.Drawing.Point(8, 37);
+            this.calculatorTabExpressionTextBox.Name = "calculatorTabExpressionTextBox";
+            this.calculatorTabExpressionTextBox.Size = new System.Drawing.Size(1037, 22);
+            this.calculatorTabExpressionTextBox.TabIndex = 0;
+            this.calculatorTabExpressionTextBox.TextChanged += new System.EventHandler(this.calculatorTabExpressionTextBox_TextChanged);
+            // 
+            // calculatorTabCalculateExpressionButton
+            // 
+            this.calculatorTabCalculateExpressionButton.Location = new System.Drawing.Point(11, 66);
+            this.calculatorTabCalculateExpressionButton.Name = "calculatorTabCalculateExpressionButton";
+            this.calculatorTabCalculateExpressionButton.Size = new System.Drawing.Size(75, 23);
+            this.calculatorTabCalculateExpressionButton.TabIndex = 2;
+            this.calculatorTabCalculateExpressionButton.Text = "Calculate";
+            this.calculatorTabCalculateExpressionButton.UseVisualStyleBackColor = true;
+            this.calculatorTabCalculateExpressionButton.Click += new System.EventHandler(this.calculatorTabCalculateExpressionButton_Click);
+            // 
+            // calculatorTabInfoLabel
+            // 
+            this.calculatorTabInfoLabel.AutoSize = true;
+            this.calculatorTabInfoLabel.Location = new System.Drawing.Point(8, 8);
+            this.calculatorTabInfoLabel.Name = "calculatorTabInfoLabel";
+            this.calculatorTabInfoLabel.Size = new System.Drawing.Size(227, 17);
+            this.calculatorTabInfoLabel.TabIndex = 3;
+            this.calculatorTabInfoLabel.Text = "Enter expression in the field below:";
+            // 
+            // calculatorTabResultLabel
+            // 
+            this.calculatorTabResultLabel.AutoSize = true;
+            this.calculatorTabResultLabel.Location = new System.Drawing.Point(92, 69);
+            this.calculatorTabResultLabel.Name = "calculatorTabResultLabel";
+            this.calculatorTabResultLabel.Size = new System.Drawing.Size(171, 17);
+            this.calculatorTabResultLabel.TabIndex = 4;
+            this.calculatorTabResultLabel.Text = "the result will appear here";
+            // 
             // taxesTab
             // 
             this.taxesTab.Controls.Add(this.groupBox4);
@@ -536,6 +587,10 @@
         private System.Windows.Forms.TabPage calculatorTab;
         private System.Windows.Forms.TabPage taxesTab;
         private System.Windows.Forms.TabPage conversionTab;
+        private System.Windows.Forms.TextBox calculatorTabExpressionTextBox;
+        private System.Windows.Forms.Button calculatorTabCalculateExpressionButton;
+        private System.Windows.Forms.Label calculatorTabResultLabel;
+        private System.Windows.Forms.Label calculatorTabInfoLabel;
         private System.Windows.Forms.Label interestRateLabel;
         private System.Windows.Forms.Label lengthOfLoanLabel;
         private System.Windows.Forms.Label downPaymentLabel1;
