@@ -9,7 +9,7 @@ namespace AutomationTests
     public partial class MainForm : Form
     {
         public Taxes taxes;
-        private readonly ConversionRate _conversionRate;
+        private ConversionRate _conversionRate;
 
         public MainForm()
         {
