@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculator.cs" />
     <Compile Include="ControlExtensions.cs" />
     <Compile Include="ConversionRate.cs" />
     <Compile Include="MainForm.cs">
@@ -63,6 +64,7 @@
       <DependentUpon>TableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Taxes.cs" />
+    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

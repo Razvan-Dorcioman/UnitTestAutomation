@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AutomationTests
 {
+    [ExcludeFromCodeCoverage]
     public static class ControlExtensions
     {
         public static async Task<bool> GetIdle(this TextBox txb, int waitTime = 1000)

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomationTestsInitialization.cs" />
+    <Compile Include="CalculatorTests.cs" />
     <Compile Include="ConversionRateTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaxesTest.cs" />
@@ -64,6 +65,11 @@
       <Project>{4cb0d380-4730-4af2-b3e6-5d118fc10605}</Project>
       <Name>AutomationTests</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FileToDeploy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
