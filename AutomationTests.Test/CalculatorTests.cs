@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AutomationTests.Test
 {
@@ -9,7 +10,9 @@ namespace AutomationTests.Test
     {
         private readonly Calculator _calculator = new Calculator();
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void isDigit_isDigit()
         {
             // given
@@ -20,7 +23,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void isDigit_lowerBound()
         {
             // given
@@ -31,7 +36,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void isDigit_upperBound()
         {
             // given
@@ -42,7 +49,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void isDigit_outOfLowerBound()
         {
             // given
@@ -53,7 +62,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void isDigit_outOfUpperBound()
         {
             // given
@@ -67,7 +78,10 @@ namespace AutomationTests.Test
         /// <summary>
         ///     /////////////////////////////////////////////////////////////////
         /// </summary>
-        [TestMethod]
+
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateConsistency_strIsEmpty()
         {
             // given
@@ -78,7 +92,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateConsistency_strHasAnythingButDigitOrOperator()
         {
             // given
@@ -89,7 +105,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateConsistency_strHasDigitAndOperatorPlusOther()
         {
             // given
@@ -100,7 +118,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateConsistency_strHasOnlyDigitAndOperator()
         {
             // given
@@ -115,7 +135,11 @@ namespace AutomationTests.Test
         /// <summary>
         ///     /////////////////////////////////////////////////////////////////////////
         /// </summary>
-        [TestMethod]
+
+
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strIsEmpty()
         {
             // given
@@ -126,7 +150,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasOnePlusOperatorOnly()
         {
             // given
@@ -137,7 +163,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasOneMinusOperatorOnly()
         {
             // given
@@ -148,7 +176,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasOneMultiplyOperatorOnly()
         {
             // given
@@ -159,7 +189,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasOneDivisionOperatorOnly()
         {
             // given
@@ -170,7 +202,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasPlusOperatorFollowedByDigit()
         {
             // given
@@ -181,7 +215,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasMinusOperatorFollowedByDigit()
         {
             // given
@@ -192,7 +228,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasMultiplyOperatorFollowedByDigit()
         {
             // given
@@ -203,7 +241,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasDivisionOperatorFollowedByDigit()
         {
             // given
@@ -214,7 +254,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitFollowedByPlusOperator()
         {
             // given
@@ -225,7 +267,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitFollowedByMinusOperator()
         {
             // given
@@ -236,7 +280,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitFollowedByMultiplyOperator()
         {
             // given
@@ -247,7 +293,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitFollowedByDivisionOperator()
         {
             // given
@@ -258,7 +306,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitPlusDigit()
         {
             // given
@@ -269,7 +319,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitMinusDigit()
         {
             // given
@@ -280,7 +332,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitMultiplyDigit()
         {
             // given
@@ -291,7 +345,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void validateOperationSigns_strHasDigitDivideDigit()
         {
             // given
@@ -302,7 +358,9 @@ namespace AutomationTests.Test
             Assert.IsTrue(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasDuplicatedPlusOperator()
         {
             // given
@@ -313,7 +371,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasDuplicatedMinusOperator()
         {
             // given
@@ -324,7 +384,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasDuplicatedMultiplyOperator()
         {
             // given
@@ -335,7 +397,9 @@ namespace AutomationTests.Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void validateOperationSigns_strHasDuplicatedDivisionOperator()
         {
             // given
@@ -350,7 +414,10 @@ namespace AutomationTests.Test
         /// <summary>
         ///     /////////////////////////////////////////////////////////////
         /// </summary>
-        [TestMethod]
+
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void processOperands_indexOfOperatorIsNotForAnOperator()
         {
             // given
@@ -363,7 +430,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void processOperands_plusOperatorFollowedByDigit()
         {
             // given
@@ -375,7 +444,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void processOperands_minusOperatorFollowedByDigit()
         {
             // given
@@ -387,14 +458,13 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void processOperands_minusOneMinusOne()
         {
             // given
             var str = "-1-1";
-            //var str = "1-12/2*3+101";
-            //var expected = "1+6*3+101";
-            //var expected = "1-12/6+101";
             var expected = "-2";
             // when
             var actual = _calculator.processOperands(2, str);
@@ -402,7 +472,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void processOperands_oneMinusOne()
         {
             // given
@@ -418,8 +490,12 @@ namespace AutomationTests.Test
         /// <summary>
         ///     /////////////////////////////////////////////////////////////////
         /// </summary>
-        [TestMethod]
-        public void CalculateMultiplyAndDivideInOrderTest()
+
+
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
+        public void calculateMultiplyAndDivideInOrderTest()
         {
             // given
             var str = "-4*2/2*3+1";
@@ -432,7 +508,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void calculateSumAndSubstractInOrder_OnePlusTwoPlusThree()
         {
             // given
@@ -444,7 +522,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void calculateSumAndSubstractInOrder_MinusOneMinusTwoMinusThree()
         {
             // given
@@ -456,7 +536,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
         public void calculateSumAndSubstractInOrder_MinusThenPlus()
         {
             // given
@@ -468,7 +550,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void calculateSumAndSubstractInOrder_OnlyPositiveNumber()
         {
             // given
@@ -480,7 +564,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void calculateSumAndSubstractInOrder_OnlyNegativeNumber()
         {
             // given
@@ -496,7 +582,11 @@ namespace AutomationTests.Test
         /// <summary>
         ///     ////////////////////////////////////////////////////////////////////
         /// </summary>
-        [TestMethod]
+
+
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void calculateBasic_hasEmptyString()
         {
             // given
@@ -508,7 +598,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void calculateBasic_hasInvalidConsistency()
         {
             // given
@@ -520,7 +612,9 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
         public void calculateBasic_hasInvalidOperationSigns()
         {
             // given
@@ -532,8 +626,10 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
-        public void CalculateBasic_hasInvalidConsistencyAndOperationSigns()
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("WhiteBox")]
+        public void calculateBasic_hasInvalidConsistencyAndOperationSigns()
         {
             // given
             var str = ";+";
@@ -544,8 +640,10 @@ namespace AutomationTests.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
-        public void CalculateBasic()
+        [TestMethod()]
+        [Owner("Ciprian Ghenceanu")]
+        [TestCategory("BlackBox")]
+        public void calculateBasic()
         {
             // given
             var str = "-1+2*3+4-1*2*3-4/2*8*2";
