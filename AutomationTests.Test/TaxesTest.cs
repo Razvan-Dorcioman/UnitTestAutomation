@@ -153,12 +153,28 @@ namespace AutomationTests.Test
         [TestMethod]
         [Owner("Iulia")]
         [TestCategory("WhiteBox")]
-        public void TestValidateDownPaymentEmpthyParamFail()
+        public void TestValidateDownPaymentEmptyParam2Fail()
         {
             TaxesManager.rateType = "firstHome";
             Assert.IsTrue(TaxesManager.ValidateDownPayment("1000", ""));
         }
 
+        [TestMethod]
+        [Owner("Iulia")]
+        [TestCategory("WhiteBox")]
+        public void TestValidateDownPaymentEmptyParam1Fail()
+        {
+            TaxesManager.rateType = "firstHome";
+            Assert.IsTrue(TaxesManager.ValidateDownPayment("", "1000"));
+        }
+
+        [TestMethod]
+        [Owner("Iulia")]
+        [TestCategory("BlackBox")]
+        public void TestValidateDownPaymentEmpthyRateTypeFail()
+        {
+            Assert.IsFalse(TaxesManager.ValidateDownPayment("2000", "20000"));
+        }
         [TestMethod]
         [Owner("Iulia")]
         [TestCategory("WhiteBox")]
