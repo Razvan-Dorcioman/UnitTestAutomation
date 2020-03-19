@@ -175,6 +175,7 @@ namespace AutomationTests.Test
         {
             Assert.IsFalse(TaxesManager.ValidateDownPayment("2000", "20000"));
         }
+
         [TestMethod]
         [Owner("Iulia")]
         [TestCategory("WhiteBox")]
